@@ -49,7 +49,6 @@
     },
     watch: {
       loading(flag) {
-        console.log('flag', flag)
         if(flag) {
           this.startCounter()
         } else {

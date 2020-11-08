@@ -5,13 +5,11 @@ import { createRouterLayout } from 'vue-router-layout'
 
 Vue.use(Router)
 
-routes.push()
-
 const RouterLayout = createRouterLayout(layout => {
   return import('@/layouts/' + layout + '.vue')
 })
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
@@ -26,9 +24,15 @@ export default new Router({
       children: [{
         name: 'page-404',
         path: '',
-        redirect: '/404',
         component: () => import('@/pages/404.vue')
       }]
     }
   ]
 })
+
+router.beforeEach((to, _, next) => {
+  if (to.fullPath === '/') next('people')
+  else next()
+})
+
+export default router
